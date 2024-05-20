@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página com Canvas</title>
+    <style>
+  body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .quadro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quadro">
+            <h1>A) Equação geral da reta</h1>
+            <canvas id="canvas1" width="200" height="200"></canvas>
+        </div>
+        <div class="quadro">
+            <h1>B) Equação diferencial da reta</h1>
+            <canvas id="canvas2" width="200" height="200"></canvas>
+        </div>
+        <div class="quadro">
+            <h1>C) Algoritmo de Bresenham <br/> para construção de retas </h1>
+            <canvas id="canvas3" width="200" height="200"></canvas>
+        </div>
+        <div class="quadro">
+            <h1>D) Equação Explícita da circunferência</h1>
+            <canvas id="canvas4"  width="250" height="250"></canvas>
+        </div>
+        <div class="quadro">
+            <h1>E) Equação paramétrica da circunferência</h1>
+            <canvas id="canvas5"  width="250" height="250"></canvas>
+        </div>
+        <div class="quadro">
+            <h1>F) Algoritmo de Bresenham para circunferência</h1>
+            <canvas id="canvas6" width="250" height="250"></canvas>
+        </div>
+    </div>
+
+    <script>
+
+window.onload = function() {
+            // Equação Geral da Reta: y = mx + b
+            var canvas = document.getElementById("canvas1");
+            var ctx = canvas.getContext("2d");
+
+            // Equação Geral da Reta: y = mx + b
+            var m = 0.5; // Inclinação
+            var b = 50;  // Intercepto no eixo y
+
+            // Desenhando a reta
+            ctx.beginPath();
+            ctx.moveTo(0, b);
+            ctx.lineTo(canvas.width, m * canvas.width + b);
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+
+            // Equação diferencial da reta
+            var canvas = document.getElementById("canvas2");
+            var ctx = canvas.getContext("2d");
+
+            // Inclinação da reta
+            var m = 0.5;
+
+            // Função para calcular a inclinação em relação a x
+            function slopeFunction(x) {
+                return m;
+            }
+
+            // Calculando os pontos da reta
+            var startY = 50; // Ponto inicial no eixo y
+            var step = 10; // Passo para avançar ao longo do eixo x
+            var x = 0; // Ponto inicial no eixo x
+
+            ctx.beginPath();
+            ctx.moveTo(0, startY);
+
+            while (x < canvas.width) {
+                var slope = slopeFunction(x);
+                var endY = startY + (slope * step);
+                ctx.lineTo(x + step, endY);
+                x += step;
+                startY = endY;
+            }
+
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+       
+       
+            var canvas = document.getElementById("canvas3");
+            var ctx = canvas.getContext("2d");
+
+            // Inclinação da reta
+            var m = 0.5;
+
+            // Função para calcular a inclinação em relação a x
+            function slopeFunction(x) {
+                return m;
+            }
+
+            // Calculando os pontos da reta
+            var startY = 50; // Ponto inicial no eixo y
+            var step = 10; // Passo para avançar ao longo do eixo x
+            var x = 0; // Ponto inicial no eixo x
+
+            ctx.beginPath();
+            ctx.moveTo(0, startY);
+
+            while (x < canvas.width) {
+                var slope = slopeFunction(x);
+                var endY = startY + (slope * step);
+                ctx.lineTo(x + step, endY);
+                x += step;
+                startY = endY;
+            }
+
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+
+            var canvas = document.getElementById("canvas4");
+            var ctx = canvas.getContext("2d");
+
+            // Coordenadas do centro da circunferência
+            var h = canvas.width / 2;
+            var k = canvas.height / 2;
+
+            // Raio da circunferência
+            var r = 100;
+
+            // Desenhando a circunferência
+            ctx.beginPath();
+            ctx.arc(h, k, r, 0, 2 * Math.PI);
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+        
+       
+        var canvas = document.getElementById("canvas5");
+            var ctx = canvas.getContext("2d");
+
+            // Coordenadas do centro da circunferência
+            var h = canvas.width / 2;
+            var k = canvas.height / 2;
+
+            // Raio da circunferência
+            var r = 100;
+
+            // Desenhando a circunferência usando a equação paramétrica
+            ctx.beginPath();
+            for (var t = 0; t <= 2 * Math.PI; t += 0.01) {
+                var x = h + r * Math.cos(t);
+                var y = k + r * Math.sin(t);
+                if (t === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+            var canvas = document.getElementById("canvas6");
+            var ctx = canvas.getContext("2d");
+
+            // Parâmetros da circunferência
+            var centerX = canvas.width / 2;
+            var centerY = canvas.height / 2;
+            var radius = 100;
+
+            // Algoritmo de Bresenham para circunferência
+            var x = 0;
+            var y = radius;
+            var d = 3 - 2 * radius;
+
+            while (x <= y) {
+                plotCirclePoints(centerX, centerY, x, y);
+                if (d < 0) {
+                    d = d + (4 * x) + 6;
+                } else {
+                    d = d + (4 * (x - y)) + 10;
+                    y--;
+                }
+                x++;
+            }
+
+            // Função para plotar os pontos simétricos da circunferência
+            function plotCirclePoints(centerX, centerY, x, y) {
+                ctx.fillRect(centerX + x, centerY + y, 1, 1);
+                ctx.fillRect(centerX - x, centerY + y, 1, 1);
+                ctx.fillRect(centerX + x, centerY - y, 1, 1);
+                ctx.fillRect(centerX - x, centerY - y, 1, 1);
+                ctx.fillRect(centerX + y, centerY + x, 1, 1);
+                ctx.fillRect(centerX - y, centerY + x, 1, 1);
+                ctx.fillRect(centerX + y, centerY - x, 1, 1);
+                ctx.fillRect(centerX - y, centerY - x, 1, 1);
+            }
+        
+        
+        };
+    </script>
+</body>
+</html>

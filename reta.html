@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reta com Equação Geral</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        canvas {
+            display: block;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="800" height="400"></canvas>
+
+    <script>
+        window.onload = function() {
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            // Equação Geral da Reta: y = mx + b
+            var m = 0.5; // Inclinação
+            var b = 50;  // Intercepto no eixo y
+
+            // Desenhando a reta
+            ctx.beginPath();
+            ctx.moveTo(0, b);
+            ctx.lineTo(canvas.width, m * canvas.width + b);
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+        };
+    </script>
+</body>
+</html>

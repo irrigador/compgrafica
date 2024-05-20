@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circunferência com Algoritmo de Bresenham</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        canvas {
+            display: block;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+        window.onload = function() {
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            // Parâmetros da circunferência
+            var centerX = canvas.width / 2;
+            var centerY = canvas.height / 2;
+            var radius = 100;
+
+            // Algoritmo de Bresenham para circunferência
+            var x = 0;
+            var y = radius;
+            var d = 3 - 2 * radius;
+
+            while (x <= y) {
+                plotCirclePoints(centerX, centerY, x, y);
+                if (d < 0) {
+                    d = d + (4 * x) + 6;
+                } else {
+                    d = d + (4 * (x - y)) + 10;
+                    y--;
+                }
+                x++;
+            }
+
+            // Função para plotar os pontos simétricos da circunferência
+            function plotCirclePoints(centerX, centerY, x, y) {
+                ctx.fillRect(centerX + x, centerY + y, 1, 1);
+                ctx.fillRect(centerX - x, centerY + y, 1, 1);
+                ctx.fillRect(centerX + x, centerY - y, 1, 1);
+                ctx.fillRect(centerX - x, centerY - y, 1, 1);
+                ctx.fillRect(centerX + y, centerY + x, 1, 1);
+                ctx.fillRect(centerX - y, centerY + x, 1, 1);
+                ctx.fillRect(centerX + y, centerY - x, 1, 1);
+                ctx.fillRect(centerX - y, centerY - x, 1, 1);
+            }
+        };
+    </script>
+</body>
+</html>

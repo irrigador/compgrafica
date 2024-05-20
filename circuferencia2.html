@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circunferência com Equação Paramétrica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        canvas {
+            display: block;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+        window.onload = function() {
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            // Coordenadas do centro da circunferência
+            var h = canvas.width / 2;
+            var k = canvas.height / 2;
+
+            // Raio da circunferência
+            var r = 100;
+
+            // Desenhando a circunferência usando a equação paramétrica
+            ctx.beginPath();
+            for (var t = 0; t <= 2 * Math.PI; t += 0.01) {
+                var x = h + r * Math.cos(t);
+                var y = k + r * Math.sin(t);
+                if (t === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+        };
+    </script>
+</body>
+</html>
